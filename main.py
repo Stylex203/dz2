@@ -38,16 +38,23 @@ def get_commits_with_file(repo_path, target_file):
 
 def build_dependency_graph(repo_path, commits, output_file):
     G = nx.DiGraph()
+    
     for commit_hash, message in commits:
-        G.add_node(commit_hash, label=message)
+        label = f"{commit_hash}\n{message}"
+        G.add_node(commit_hash, label=label)
+    
     for i in range(len(commits) - 1):
         G.add_edge(commits[i + 1][0], commits[i][0])
 
-    pos = nx.spring_layout(G)
+    pos = nx.spring_layout(G, k=0.5)
     labels = nx.get_node_attributes(G, "label")
-    nx.draw(G, pos, with_labels=True, node_size=2000, node_color="skyblue", font_size=8, font_weight="bold")
-    nx.draw_networkx_labels(G, pos, labels=labels)
 
+    plt.figure(figsize=(12, 8))
+    nx.draw(G, pos, with_labels=False, node_size=2000, node_color="skyblue", font_size=8, font_weight="bold")
+    
+    nx.draw_networkx_labels(G, pos, labels=labels, font_size=10, font_color='black')
+
+    plt.tight_layout()
     plt.savefig(output_file)
     print(f"Граф зависимостей сохранён в файл: {output_file}")
 

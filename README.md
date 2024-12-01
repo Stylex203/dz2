@@ -78,7 +78,8 @@ OutputFile = super_image.png
 ### Скриншоты
 
 Пример графа зависимостей (png-файл, результат работы программы):
-НУЖЕН СКРИНШОТ
+
+![super_image](https://github.com/user-attachments/assets/5eb13030-0e3c-4540-9aa1-30b5932f6187)
 
 
 ---
